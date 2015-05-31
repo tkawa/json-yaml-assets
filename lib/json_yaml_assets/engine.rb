@@ -1,4 +1,5 @@
 require 'multi_json'
+require 'erb'
 
 module JsonYamlAssets
 
@@ -16,7 +17,7 @@ module JsonYamlAssets
       end
 
       def evaluate(scope, locals = { }, &block)
-        @output ||= MultiJson.dump(YAML.load(data),
+        @output ||= MultiJson.dump(YAML.load(ERB.new(data).result),
                                    Template.global_options.clone)
       end
     end
